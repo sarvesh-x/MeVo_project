@@ -22,63 +22,46 @@
     <TextView
         android:layout_width="wrap_content"
         android:text="Recents"
-        android:paddingTop="20dp"
+        style="@style/TextAppearance.AppCompat"
+        android:layout_marginTop="10dp"
         android:layout_height="wrap_content"/>
 
     <HorizontalScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
         android:id="@+id/horizontalScrollView"
-        android:layout_below="@+id/your_id"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="2dp">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <include
+                layout="@layout/recents_cardview"
+                />
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:padding="2dp"
-                android:id="@+id/cardThree"
-                android:layout_toEndOf="@+id/cardTwo"
-                android:background="@color/cardview_dark_background">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:src="@drawable/ic_launcher_background"
-                    android:layout_height="wrap_content"/>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:padding="2dp"
-                android:id="@+id/cardOne"
-                android:background="@color/cardview_dark_background">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:src="@drawable/ic_launcher_background"
-                    android:layout_height="wrap_content"/>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:padding="2dp"
-                android:id="@+id/cardTwo"
-                android:layout_toEndOf="@+id/cardOne"
-                android:background="@color/cardview_dark_background">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:src="@drawable/ic_launcher_background"
-                    android:layout_height="wrap_content"/>
-            </androidx.cardview.widget.CardView>
-        </RelativeLayout>
+            <include
+                layout="@layout/recents_cardview"
+                />
+            <include
+                layout="@layout/recents_cardview"
+                />
+        </LinearLayout>
     </HorizontalScrollView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="Doctors"
+        style="@style/TextAppearance.AppCompat"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/doctorsList"
+        android:layout_marginTop="10dp"
+        android:elevation="5dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>
