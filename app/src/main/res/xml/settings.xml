@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="General Settings">
+
+        <SwitchPreferenceCompat
+            android:key="notifications"
+            android:title="Notifications"
+            android:summary="Enable/disable notifications" />
+
+        <EditTextPreference
+            android:key="username"
+            android:title="Username"
+            android:summary="Enter your username" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Advanced Settings">
+
+        <ListPreference
+            android:key="theme"
+            android:title="Theme"
+            android:summary="Select app theme"
+            android:entries="@array/theme_entries"
+            android:entryValues="@array/theme_values"
+            android:defaultValue="light" />
+
+    </PreferenceCategory>
+</androidx.preference.PreferenceScreen>
