@@ -1,5 +1,6 @@
 package com.example.mevo.ui.patients;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.mevo.CreatePatientActivity;
 import com.example.mevo.R;
 import com.example.mevo.databinding.FragmentPatientsBinding;
 
@@ -32,6 +34,8 @@ private FragmentPatientsBinding binding;
         edit = binding.getRoot().findViewById(R.id.edit_patient);
 
         create.setOnClickListener(v -> {
+            Intent intent = new Intent(binding.getRoot().getContext(), CreatePatientActivity.class);
+            startActivity(intent);
             Toast.makeText(binding.getRoot().getContext(),"Create",Toast.LENGTH_LONG).show();
 
         });
