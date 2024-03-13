@@ -20,13 +20,13 @@
     <fragment
         android:id="@+id/navigation_patients"
         android:name="com.example.mevo.ui.patients.PatientsFragment"
-        android:label="Patients"
+        android:label="Manage Patients"
         tools:layout="@layout/fragment_patients" />
 
     <fragment
         android:id="@+id/navigation_Rooms"
         android:name="com.example.mevo.ui.Rooms.RoomsFragment"
-        android:label="Rooms"
+        android:label="Manage Rooms"
         tools:layout="@layout/fragment_rooms" />
 
 
