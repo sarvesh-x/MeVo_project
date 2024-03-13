@@ -12,4 +12,8 @@
     <string name="menu_gallery">Manage Patients</string>
     <string name="menu_slideshow">About</string>
     <string name="action_logout">Logout</string>
+    <string name="title_activity_root">RootActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>

@@ -22,4 +22,15 @@ public class User {
     public int getUserAge() {
         return UserAge;
     }
+
+    public void setUserName(String UserName){
+        this.UserName = UserName;
+    }
+    public void setUserAge(int UserAge){
+        this.UserAge = UserAge;
+    }
+    public void setUserGender(String UserGender){
+        this.UserGender = UserGender;
+    }
+
 }

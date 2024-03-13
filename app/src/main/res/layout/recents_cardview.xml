@@ -17,6 +17,15 @@
                 android:layout_height="160dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_launcher_background" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="8dp"
+                android:id="@+id/underLine"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:background="#999"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

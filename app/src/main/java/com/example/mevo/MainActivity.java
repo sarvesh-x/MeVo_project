@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         signup = findViewById(R.id.SignUpBtn);
 
         signin.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this,HomeActivity.class);
+            Intent intent = new Intent(MainActivity.this,RootActivity.class);
             startActivity(intent);
         });
 
