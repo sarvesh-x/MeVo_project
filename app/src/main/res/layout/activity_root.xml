@@ -32,4 +32,63 @@
         app:navGraph="@navigation/mobile_navigation"
     />
 
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/add_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="65dp"
+        android:backgroundTint="@color/teal_200"
+        android:text="MeVo"
+        app:icon="@drawable/baseline_available"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_alarm_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/teal_200"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toTopOf="@+id/add_fab"
+        app:layout_constraintEnd_toEndOf="@+id/add_fab"
+        app:srcCompat="@drawable/ic_emergency" />
+
+    <TextView
+        android:id="@+id/add_alarm_action_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="Emergency"
+        app:layout_constraintBottom_toBottomOf="@+id/add_alarm_fab"
+        app:layout_constraintEnd_toStartOf="@+id/add_alarm_fab"
+        app:layout_constraintTop_toTopOf="@+id/add_alarm_fab" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_person_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/teal_200"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toTopOf="@+id/add_alarm_fab"
+        app:layout_constraintEnd_toEndOf="@+id/add_alarm_fab"
+        app:layout_constraintStart_toStartOf="@+id/add_alarm_fab"
+        app:srcCompat="@drawable/ic_patients" />
+
+
+    <TextView
+        android:id="@+id/add_person_action_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="Patients"
+        app:layout_constraintBottom_toBottomOf="@+id/add_person_fab"
+        app:layout_constraintEnd_toStartOf="@+id/add_person_fab"
+        app:layout_constraintTop_toTopOf="@+id/add_person_fab" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

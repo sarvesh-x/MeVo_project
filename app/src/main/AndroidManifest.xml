@@ -15,6 +15,9 @@
         android:theme="@style/Theme.MeVo"
         tools:targetApi="31">
         <activity
+            android:name=".EmergencyActivity"
+            android:exported="false" />
+        <activity
             android:name=".CreatePatientActivity"
             android:exported="false" />
         <activity
