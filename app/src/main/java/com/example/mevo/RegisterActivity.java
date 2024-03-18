@@ -18,6 +18,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.mevo.APIs.API;
+import com.example.mevo.DataModels.UserModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -27,10 +29,15 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 
 import java.util.Objects;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class RegisterActivity extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
-    private String BASE_URL = "";
+    private String BASE_URL = "https://good-rose-katydid-boot.cyclic.app";
     EditText name, email, password;
     private ProgressBar progressBar;
     Button signup;
@@ -46,9 +53,8 @@ public class RegisterActivity extends AppCompatActivity {
             return insets;
         });
 
-        mAuth = FirebaseAuth.getInstance();
 
-        progressBar = findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressBarRegister);
         name = findViewById(R.id.NameRegister);
         email = findViewById(R.id.EmailRegister);
         password = findViewById(R.id.userpasswordRegister);
@@ -57,7 +63,8 @@ public class RegisterActivity extends AppCompatActivity {
         signup.setOnClickListener(v -> {
 
             progressBar.setVisibility(View.VISIBLE);
-            String Reg_email, Reg_password;
+            String Reg_name,Reg_email, Reg_password;
+            Reg_name = name.getText().toString();
             Reg_email = email.getText().toString();
             Reg_password = password.getText().toString();
 
@@ -70,26 +77,25 @@ public class RegisterActivity extends AppCompatActivity {
                 return;
             }
 
-            mAuth.createUserWithEmailAndPassword(Reg_email, Reg_password)
-                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                        .setDisplayName(name.getText().toString()).build();
+            Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+            API retrofitAPI = retrofit.create(API.class);
+            UserModel modal = new UserModel(Reg_email,Reg_name,Reg_password);
+            Call<UserModel> call = retrofitAPI.signUp(modal);
+            call.enqueue(new Callback<>() {
+                @Override
+                public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                    Toast.makeText(getApplicationContext(), "Registration Successfull", Toast.LENGTH_LONG).show();
+                    progressBar.setVisibility(View.INVISIBLE);
+                    finish();
+                }
 
-                                Objects.requireNonNull(user).updateProfile(profileUpdates);
-                                Toast.makeText(getApplicationContext(), "Registration successful!", Toast.LENGTH_LONG).show();
-                                progressBar.setVisibility(View.GONE);
+                @Override
+                public void onFailure(Call<UserModel> call, Throwable t) {
+                    progressBar.setVisibility(View.INVISIBLE);
+                    Log.e("----------",t.getMessage());
+                }
+            });
 
-                            }
-                            else {
-                                Toast.makeText(getApplicationContext(), "Registration failed! Please try again later", Toast.LENGTH_LONG).show();
-                                progressBar.setVisibility(View.GONE);
-                            }
-                        }
-                    });
         });
     }
 }
