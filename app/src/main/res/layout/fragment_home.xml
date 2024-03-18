@@ -7,6 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_margin="10dp"
+    android:isScrollContainer="true"
     android:orientation="vertical"
     android:layout_height="wrap_content"
     tools:context=".ui.home.HomeFragment">
@@ -14,9 +15,10 @@
     <TextView
         android:id="@+id/greetings_home"
         android:textAllCaps="true"
-        android:textSize="20sp"
-        style="@style/TextAppearance.MaterialComponents.Headline5"
-        android:textStyle="bold|italic"
+        android:padding="10dp"
+        style="@style/TextAppearance.AppCompat.Headline"
+        android:textStyle="bold"
+        android:elevation="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Welcome, User" />
@@ -24,12 +26,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:text="Recents"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="30dp"
         style="@style/TextAppearance.AppCompat"
-        android:layout_marginTop="10dp"
         android:layout_height="wrap_content"/>
 
     <HorizontalScrollView
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:id="@+id/horizontalScrollView"
         android:background="@drawable/layout_bg"
@@ -39,6 +42,7 @@
 
         <LinearLayout
             android:orientation="horizontal"
+            android:layout_margin="20dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <include
@@ -58,12 +62,14 @@
         android:layout_width="wrap_content"
         android:text="Doctors"
         style="@style/TextAppearance.AppCompat"
-        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="40dp"
         android:layout_height="wrap_content"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/doctorsList"
-        android:layout_marginTop="10dp"
+        android:layout_margin="10dp"
         android:elevation="5dp"
         android:background="@drawable/layout_bg"
         android:layout_width="match_parent"

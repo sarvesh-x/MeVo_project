@@ -20,7 +20,7 @@ public class RootActivity extends AppCompatActivity {
 
     ExtendedFloatingActionButton mAddFab;
 
-    TextView addAlarmActionText, addPersonActionText;
+    TextView addAlarmActionText, addPersonActionText, greetings;
 
     Boolean isAllFabsVisible;
 private ActivityRootBinding binding;
@@ -39,6 +39,17 @@ private ActivityRootBinding binding;
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_root);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+
+        greetings = findViewById(R.id.greetings_home);
+        Bundle extras = getIntent().getExtras();
+        String username = "";
+        if (extras != null) {
+            username = extras.getString("username");
+
+        }
+
+        greetings.setText("Welcome, "+username);
 
         mAddFab = findViewById(R.id.add_fab);
         mAddAlarmFab = findViewById(R.id.add_alarm_fab);
