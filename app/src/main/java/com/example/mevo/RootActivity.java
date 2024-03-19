@@ -46,10 +46,9 @@ private ActivityRootBinding binding;
         String username = "";
         if (extras != null) {
             username = extras.getString("username");
-
         }
 
-        greetings.setText("Welcome, "+username);
+        //greetings.setText("Welcome, "+username);
 
         mAddFab = findViewById(R.id.add_fab);
         mAddAlarmFab = findViewById(R.id.add_alarm_fab);

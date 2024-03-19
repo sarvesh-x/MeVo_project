@@ -2,37 +2,37 @@ package com.example.mevo.DataModels;
 
 public class Room {
 
-    private int RoomNo;
-    private String RoomName;
-    private int Available;
+    private String roomNo;
+    private String roomName;
+    private String isAvailable;
 
-    public Room(int RoomNo, int Available, String RoomName){
-        this.Available = Available;
-        this.RoomName = RoomName;
-        this.RoomNo = RoomNo;
+    public Room(String RoomNo, String Available, String RoomName){
+        this.isAvailable = Available;
+        this.roomName = RoomName;
+        this.roomNo = RoomNo;
     }
 
-    public int getRoomNo() {
-        return RoomNo;
+    public String getRoomNo() {
+        return roomNo;
     }
 
     public String getRoomName() {
-        return RoomName;
+        return roomName;
     }
 
-    public int getAvailable() {
-        return Available;
+    public String getAvailable() {
+        return isAvailable;
     }
 
-    public void setAvailable(int available) {
-        Available = available;
+    public void setAvailable(String available) {
+        isAvailable = available;
     }
 
-    public void setRoomNo(int roomNo) {
-        RoomNo = roomNo;
+    public void setRoomNo(String roomNo) {
+        roomNo = roomNo;
     }
 
     public void setRoomName(String roomName) {
-        RoomName = roomName;
+        roomName = roomName;
     }
 }

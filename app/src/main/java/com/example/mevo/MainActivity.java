@@ -3,6 +3,7 @@ package com.example.mevo;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -37,6 +38,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
+    SharedPreferences shp;
+    SharedPreferences.Editor shpEditor;
     private String BASE_URL = "https://good-rose-katydid-boot.cyclic.app";
     EditText email,password;
     Button signin,signup;
@@ -45,6 +48,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+        CheckLogin();
+    }
+
+    public void CheckLogin() {
+        if (shp == null)
+            shp = getSharedPreferences("myPreferences", MODE_PRIVATE);
+
+        String userName = shp.getString("name", "");
+
+        if (userName != null && !userName.equals("")) {
+            Intent i = new Intent(MainActivity.this, RootActivity.class);
+            i.putExtra("username",userName);
+            startActivity(i);
+            finish();
+        }
     }
 
     @Override
@@ -58,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        shp = getSharedPreferences("myPreferences", MODE_PRIVATE);
+
         progressBar = findViewById(R.id.progressBarLogin);
         email = findViewById(R.id.username);
         password = findViewById(R.id.userpassword);
@@ -65,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
         signup = findViewById(R.id.SignUpBtn);
 
         signin.setOnClickListener(v -> {
+            progressBar.setVisibility(View.VISIBLE);
             String Login_email, Login_password;
             Login_email = email.getText().toString();
             Login_password = password.getText().toString();
@@ -88,6 +109,13 @@ public class MainActivity extends AppCompatActivity {
                     if (response.code() == 200){
                         Toast.makeText(getApplicationContext(), "Login Successfull", Toast.LENGTH_LONG).show();
                         progressBar.setVisibility(View.INVISIBLE);
+                        if (shp == null)
+                            shp = getSharedPreferences("myPreferences", MODE_PRIVATE);
+
+                        shpEditor = shp.edit();
+                        shpEditor.putString("name", response.body().getName());
+                        shpEditor.commit();
+
                         Intent intent = new Intent(MainActivity.this,RootActivity.class);
                         intent.putExtra("username",response.body().getName());
                         startActivity(intent);

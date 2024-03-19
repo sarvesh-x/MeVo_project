@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
+
+    <EditText
+        android:id="@+id/addroomNo"
+        android:hint="Room No"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/addroomName"
+        android:layout_margin="10dp"
+        android:hint="Room Name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="Available"
+        android:layout_margin="15dp"
+        android:layout_height="wrap_content"/>
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:id="@+id/addRoomAvailable"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RadioButton android:id="@+id/addRoomAvailableYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yes"/>
+        <RadioButton android:id="@+id/addRoomAvailableNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No"/>
+    </RadioGroup>
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_margin="10dp"
+        android:visibility="gone"
+        android:id="@+id/addRoomProgressBar"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

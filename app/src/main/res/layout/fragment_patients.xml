@@ -114,5 +114,42 @@
                 android:layout_height="wrap_content"/>
         </LinearLayout>
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="#999"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/view_patients"
+        android:orientation="vertical"
+        android:background="@drawable/layout_bg"
+        android:elevation="10dp"
+        android:layout_margin="20dp"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_margin="20dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="50dp"
+                android:src="@drawable/ic_view_all"
+                android:layout_height="50dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="View All Patients"
+                android:textColor="@color/black"
+                android:elevation="5dp"
+                android:gravity="center"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_margin="10dp"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>
