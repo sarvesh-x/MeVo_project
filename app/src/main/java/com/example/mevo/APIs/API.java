@@ -1,5 +1,7 @@
 package com.example.mevo.APIs;
 
+import com.example.mevo.DataModels.DoctorModel;
+import com.example.mevo.DataModels.NotificationModel;
 import com.example.mevo.DataModels.PatientModel;
 import com.example.mevo.DataModels.Room;
 import com.example.mevo.DataModels.UserModel;
@@ -25,4 +27,8 @@ public interface API {
     Call<Room> EditRoom(@Body Room model);
     @POST("AddPatient")
     Call<PatientModel> AddPatient(@Body PatientModel model);
+    @GET("GetDoctors")
+    Call <List<DoctorModel>> GetDoctors();
+    @GET("GetNotifications")
+    Call <List<NotificationModel>> GetNotifications();
 }

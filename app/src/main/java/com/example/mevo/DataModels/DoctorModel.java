@@ -3,17 +3,27 @@ package com.example.mevo.DataModels;
 public class DoctorModel {
 
     private String doctor_name;
-    private int available;
-    private int doctor_image;
-
+    private String room_Name;
+    private String available;
+    private String doctor_image;
     // Constructor
-    public DoctorModel(String doctor_name, int available, int doctor_image) {
+    public DoctorModel(String doctor_name, String room_Name, String available, String doctor_image) {
         this.doctor_name = doctor_name;
+        this.room_Name = room_Name;
         this.available = available;
         this.doctor_image = doctor_image;
     }
 
     // Getter and Setter
+
+    public String getRoom_Name() {
+        return room_Name;
+    }
+
+    public void setRoom_Name(String room_Name) {
+        this.room_Name = room_Name;
+    }
+
     public String getDoctor_name() {
         return doctor_name;
     }
@@ -22,19 +32,19 @@ public class DoctorModel {
         this.doctor_name = doctor_name;
     }
 
-    public int getAvailable() {
+    public String getAvailable() {
         return available;
     }
 
-    public void setAvailable(int available) {
+    public void setAvailable(String available) {
         this.available = available;
     }
 
-    public int getDoctor_image() {
+    public String getDoctor_image() {
         return doctor_image;
     }
 
-    public void setDoctor_image(int doctor_image) {
+    public void setDoctor_image(String doctor_image) {
         this.doctor_image = doctor_image;
     }
 }

@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mevo.DataModels.DoctorModel;
 import com.example.mevo.R;
+import com.example.mevo.Utils.ImageUtil;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -36,7 +39,8 @@ public class DoctorsListAdapter extends RecyclerView.Adapter<DoctorsListAdapter.
         DoctorModel model = doctorModelArrayList.get(position);
         holder.doctorName.setText(model.getDoctor_name());
         holder.available.setText("" + model.getAvailable());
-        holder.doctorIV.setImageResource(model.getDoctor_image());
+        holder.doctorRoom.setText(model.getRoom_Name());
+        holder.doctorIV.setImageBitmap(ImageUtil.convert(model.getDoctor_image()));
     }
 
     @Override
@@ -47,11 +51,13 @@ public class DoctorsListAdapter extends RecyclerView.Adapter<DoctorsListAdapter.
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final ImageView doctorIV;
         private final TextView doctorName;
+        private final TextView doctorRoom;
         private final TextView available;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             doctorIV = itemView.findViewById(R.id.doctorsImage);
+            doctorRoom = itemView.findViewById(R.id.doctorRoom);
             doctorName = itemView.findViewById(R.id.doctorName);
             available = itemView.findViewById(R.id.doctorAvailable);
         }

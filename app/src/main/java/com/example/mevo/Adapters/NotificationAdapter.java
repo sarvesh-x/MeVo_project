@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mevo.DataModels.NotificationModel;
 import com.example.mevo.R;
+import com.example.mevo.Utils.ImageUtil;
 
 import java.util.ArrayList;
 
@@ -35,7 +36,8 @@ public NotificationAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup pare
 public void onBindViewHolder(@NonNull NotificationAdapter.ViewHolder holder, int position) {
         NotificationModel model = notificationModelArrayList.get(position);
         holder.notificationTitle.setText(model.getNotificationTitle());
-        holder.notificationImage.setImageResource(model.getNotificationImage());
+        holder.notificationImage.setImageBitmap(ImageUtil.convert(model.getNotificationImage()));
+        holder.notificationContent.setText(model.getNotificationContent());
         }
 
 @Override
@@ -46,11 +48,13 @@ public int getItemCount() {
 public static class ViewHolder extends RecyclerView.ViewHolder {
     private final ImageView notificationImage;
     private final TextView notificationTitle;
+    private final TextView notificationContent;
 
     public ViewHolder(@NonNull View itemView) {
         super(itemView);
         notificationImage = itemView.findViewById(R.id.notification_image);
         notificationTitle = itemView.findViewById(R.id.notification_title);
+        notificationContent = itemView.findViewById(R.id.notification_content);
     }
 }
 }

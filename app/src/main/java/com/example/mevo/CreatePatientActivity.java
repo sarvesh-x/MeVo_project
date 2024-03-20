@@ -51,7 +51,6 @@ public class CreatePatientActivity extends AppCompatActivity {
         RadioGroup Gender;
         Button saveBtn;
 
-
         Name = findViewById(R.id.patientName);
         Age = findViewById(R.id.patientAge);
         Contact = findViewById(R.id.patientContact);

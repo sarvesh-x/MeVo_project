@@ -35,19 +35,28 @@
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
-
+        <TextView
+            android:id="@+id/doctorRoom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:layout_below="@id/doctorName"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/doctorsImage"
+            android:drawablePadding="5dp"
+            android:text="Subtitle" />
 
         <TextView
             android:id="@+id/doctorAvailable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="start"
-            android:layout_below="@id/doctorName"
+            android:layout_below="@id/doctorRoom"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_toEndOf="@id/doctorsImage"
             android:drawablePadding="5dp"
-            android:text="Subtitle"
-            app:drawableStartCompat="@drawable/baseline_available" />
+            android:text="Subtitle" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

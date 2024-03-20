@@ -4,14 +4,24 @@ import android.widget.ImageView;
 
 public class NotificationModel {
 
-    private int NotificationImage;
+    private String NotificationImage;
+    private String NotificationContent;
     private String NotificationTitle;
-    public NotificationModel(int NotificationImage, String NotificationTitle){
+    public NotificationModel(String NotificationImage, String NotificationTitle, String NotificationContent){
         this.NotificationImage = NotificationImage;
+        this.NotificationContent = NotificationContent;
         this.NotificationTitle = NotificationTitle;
     }
 
-    public int getNotificationImage() {
+    public String getNotificationContent() {
+        return NotificationContent;
+    }
+
+    public void setNotificationContent(String notificationContent) {
+        NotificationContent = notificationContent;
+    }
+
+    public String getNotificationImage() {
         return NotificationImage;
     }
 
@@ -19,7 +29,7 @@ public class NotificationModel {
         return NotificationTitle;
     }
 
-    public void setNotificationImage(int notificationImage) {
+    public void setNotificationImage(String notificationImage) {
         NotificationImage = notificationImage;
     }
 
