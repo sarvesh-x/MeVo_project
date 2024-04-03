@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/root_logout"
+        android:title="Logout"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/root_administration"
+        android:title="Administration"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/root_exit"
+        android:title="Exit"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/root_reload"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_reload"
+        android:title="Refresh"/>
+
+</menu>

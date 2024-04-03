@@ -15,6 +15,12 @@
         android:theme="@style/Theme.MeVo"
         tools:targetApi="31">
         <activity
+            android:name=".ViewPatientsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MedicinesActivity"
+            android:exported="false" />
+        <activity
             android:name=".EmergencyActivity"
             android:exported="false" />
         <activity

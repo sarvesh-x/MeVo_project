@@ -65,7 +65,6 @@ private FragmentNotificationsBinding binding;
         });
 
 
-
         return root;
     }
 

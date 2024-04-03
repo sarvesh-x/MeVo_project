@@ -2,10 +2,18 @@ package com.example.mevo;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -17,17 +25,44 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class RootActivity extends AppCompatActivity {
 
     FloatingActionButton mAddAlarmFab, mAddPersonFab;
-
     ExtendedFloatingActionButton mAddFab;
-
     TextView addAlarmActionText, addPersonActionText, greetings;
-
     Boolean isAllFabsVisible;
 private ActivityRootBinding binding;
 
     @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+
+        int id = item.getItemId();
+        if(id == R.id.root_logout){
+            Toast.makeText(binding.getRoot().getContext(),"WIP",Toast.LENGTH_SHORT).show();
+        } else if(id == R.id.root_administration){
+            Toast.makeText(binding.getRoot().getContext(),"Admin",Toast.LENGTH_SHORT).show();
+        } else if(id == R.id.root_exit){
+            finishAndRemoveTask();
+        } else if(id == R.id.root_reload){
+            Toast.makeText(binding.getRoot().getContext(),"Reloading...",Toast.LENGTH_SHORT).show();
+            finish();
+            overridePendingTransition(0, 0);
+            startActivity(getIntent());
+            overridePendingTransition(0, 0);
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
      binding = ActivityRootBinding.inflate(getLayoutInflater());
      setContentView(binding.getRoot());
@@ -47,8 +82,6 @@ private ActivityRootBinding binding;
         if (extras != null) {
             username = extras.getString("username");
         }
-
-        //greetings.setText("Welcome, "+username);
 
         mAddFab = findViewById(R.id.add_fab);
         mAddAlarmFab = findViewById(R.id.add_alarm_fab);
@@ -96,7 +129,7 @@ private ActivityRootBinding binding;
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(RootActivity.this, EmergencyActivity.class);
+                        Intent intent = new Intent(RootActivity.this,MedicinesActivity.class);
                         startActivity(intent);
                     }
                 });

@@ -15,10 +15,12 @@ public class PatientModel {
     public String getPatientImage() {
         return PatientImage;
     }
+
     public void setPatientImage(String patientImage) {
         PatientImage = patientImage;
     }
-    public String getPateintAddress() {
+
+    public String getPatientAddress() {
         return PatientAddress;
     }
 
@@ -38,7 +40,7 @@ public class PatientModel {
         return PatientName;
     }
 
-    public void setPateintAddress(String pateintAddress) {
+    public void setPatientAddress(String pateintAddress) {
         PatientAddress = pateintAddress;
     }
 

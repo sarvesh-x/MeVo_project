@@ -2,21 +2,21 @@ package com.example.mevo.DataModels;
 
 public class MedicineModel {
 
-    private int MedicineID;
+    private String MedicineID;
     private String MedicineName;
-    private int MedicineQty;
+    private String MedicineQty;
 
-    public MedicineModel(int MedicineID,int MedicineQty, String MedicineName){
+    public MedicineModel(String MedicineID,String MedicineQty, String MedicineName){
         this.MedicineID = MedicineID;
         this.MedicineQty = MedicineQty;
         this.MedicineName = MedicineName;
     }
 
-    public int getMedicineID() {
+    public String getMedicineID() {
         return MedicineID;
     }
 
-    public int getMedicineQty() {
+    public String getMedicineQty() {
         return MedicineQty;
     }
 
@@ -24,7 +24,7 @@ public class MedicineModel {
         return MedicineName;
     }
 
-    public void setMedicineID(int medicineID) {
+    public void setMedicineID(String medicineID) {
         MedicineID = medicineID;
     }
 
@@ -32,7 +32,7 @@ public class MedicineModel {
         MedicineName = medicineName;
     }
 
-    public void setMedicineQty(int medicineQty) {
+    public void setMedicineQty(String medicineQty) {
         MedicineQty = medicineQty;
     }
 }

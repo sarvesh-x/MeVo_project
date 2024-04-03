@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.mevo.CreatePatientActivity;
 import com.example.mevo.R;
+import com.example.mevo.ViewPatientsActivity;
 import com.example.mevo.databinding.FragmentPatientsBinding;
 
 public class PatientsFragment extends Fragment {
@@ -28,10 +29,11 @@ private FragmentPatientsBinding binding;
         binding = FragmentPatientsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        LinearLayout create,edit,remove;
+        LinearLayout create,edit,remove,view_all;
         create = binding.getRoot().findViewById(R.id.create_patient);
         remove = binding.getRoot().findViewById(R.id.remove_patient);
         edit = binding.getRoot().findViewById(R.id.edit_patient);
+        view_all = binding.getRoot().findViewById(R.id.view_patients);
 
         create.setOnClickListener(v -> {
             Intent intent = new Intent(binding.getRoot().getContext(), CreatePatientActivity.class);
@@ -46,6 +48,11 @@ private FragmentPatientsBinding binding;
 
         edit.setOnClickListener(v -> {
             Toast.makeText(binding.getRoot().getContext(),"Edit",Toast.LENGTH_LONG).show();
+        });
+
+        view_all.setOnClickListener(v -> {
+            Intent intent = new Intent(binding.getRoot().getContext(), ViewPatientsActivity.class);
+            startActivity(intent);
         });
 
         return root;

@@ -42,7 +42,6 @@ public class HomeFragment extends Fragment {
         HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
         RecyclerView doctorsList = binding.getRoot().findViewById(R.id.doctorsList);
         ArrayList<DoctorModel> doctorModelArrayList = new ArrayList<DoctorModel>();
         Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
@@ -52,7 +51,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<List<DoctorModel>> call, Response<List<DoctorModel>> response) {
                 DoctorsListAdapter doctorsListAdapter = getDoctorsAdapter(response);
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(binding.getRoot().getContext(), LinearLayoutManager.VERTICAL, false);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(binding.getRoot().getContext(), LinearLayoutManager.HORIZONTAL, false);
                 doctorsList.setLayoutManager(linearLayoutManager);
                 doctorsList.setAdapter(doctorsListAdapter);
             }
