@@ -19,5 +19,11 @@
         app:showAsAction="always"
         android:icon="@drawable/ic_reload"
         android:title="Refresh"/>
+    <item
+        android:id="@+id/root_scan"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_scan"
+        android:title="Refresh"/>
 
 </menu>

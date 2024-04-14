@@ -25,6 +25,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.mevo.APIs.API;
 import com.example.mevo.DataModels.User;
 import com.example.mevo.DataModels.UserModel;
+import com.example.mevo.Utils.RetrofitConfig;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -40,11 +41,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
     SharedPreferences shp;
     SharedPreferences.Editor shpEditor;
-    private String BASE_URL = "https://good-rose-katydid-boot.cyclic.app";
     EditText email,password;
     Button signin,signup;
     ProgressBar progressBar;
-
+    API retrofitAPI = new RetrofitConfig().getRerofitAPI();
     @Override
     public void onStart() {
         super.onStart();
@@ -98,8 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Please enter password!", Toast.LENGTH_LONG).show();
                 return;
             }
-            Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
-            API retrofitAPI = retrofit.create(API.class);
+
             UserModel LoginModel = new UserModel(Login_email,"",Login_password);
             Call<UserModel> call = retrofitAPI.signIn(LoginModel);
             call.enqueue(new Callback<UserModel>() {
@@ -107,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                     Log.e("------------", String.valueOf(response.code()));
                     if (response.code() == 200){
-                        Toast.makeText(getApplicationContext(), "Login Successfull", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), "Login Successfull", Toast.LENGTH_LONG).show();
                         progressBar.setVisibility(View.INVISIBLE);
                         if (shp == null)
                             shp = getSharedPreferences("myPreferences", MODE_PRIVATE);
@@ -120,8 +119,8 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("username",response.body().getName());
                         startActivity(intent);
                         finish();
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Invalid Credentials", Toast.LENGTH_LONG).show();
+                    } else if(response.code() == 205){
+                        Toast.makeText(getApplicationContext(), "Invalid Credentials Response code 205", Toast.LENGTH_LONG).show();
                     }
                 }
 

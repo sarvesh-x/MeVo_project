@@ -22,6 +22,7 @@ import com.example.mevo.Adapters.DoctorsListAdapter;
 import com.example.mevo.Adapters.MedicineAdapter;
 import com.example.mevo.DataModels.DoctorModel;
 import com.example.mevo.DataModels.MedicineModel;
+import com.example.mevo.Utils.RetrofitConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,13 +36,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MedicinesActivity extends AppCompatActivity {
 
-    private String BASE_URL = "https://good-rose-katydid-boot.cyclic.app";
-    Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
-    API retrofitAPI = retrofit.create(API.class);
+
     Button addMedicine;
     RecyclerView MedicinesList;
     MedicineAdapter medicineAdapter;
-
+    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MedicinesActivity.this, LinearLayoutManager.VERTICAL, false);
+    API retrofitAPI = new RetrofitConfig().getRerofitAPI();
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         onBackPressed();
@@ -74,7 +74,7 @@ public class MedicinesActivity extends AppCompatActivity {
                 }
                 medicineAdapter = new MedicineAdapter(MedicinesActivity.this,medicineModelArrayList);
                 medicineAdapter.notifyDataSetChanged();
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MedicinesActivity.this, LinearLayoutManager.VERTICAL, false);
+
                 MedicinesList.setLayoutManager(linearLayoutManager);
                 MedicinesList.setAdapter(medicineAdapter);
             }
@@ -92,34 +92,31 @@ public class MedicinesActivity extends AppCompatActivity {
             final View layout = getLayoutInflater().inflate(R.layout.add_medicine_dialog,null);
             alertDialog.setView(layout);
             alertDialog.setTitle("Add Medicine");
-            alertDialog.setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    EditText MedicineID = layout.findViewById(R.id.addMedicineID);
-                    EditText MedicineName = layout.findViewById(R.id.addMedicineName);
-                    EditText MedicineQty = layout.findViewById(R.id.addMedicineQty);
+            alertDialog.setPositiveButton("Add", (dialog, which) -> {
+                EditText MedicineID = layout.findViewById(R.id.addMedicineID);
+                EditText MedicineName = layout.findViewById(R.id.addMedicineName);
+                EditText MedicineQty = layout.findViewById(R.id.addMedicineQty);
 
-                    MedicineModel medicineModel = new MedicineModel(MedicineID.getText().toString(),MedicineQty.getText().toString(),MedicineName.getText().toString());
-                    Call<MedicineModel> call = retrofitAPI.AddMedicine(medicineModel);
-                    call.enqueue(new Callback<MedicineModel>() {
-                        @Override
-                        public void onResponse(Call<MedicineModel> call, Response<MedicineModel> response) {
-                            Toast.makeText(MedicinesActivity.this,"Added Successfully",Toast.LENGTH_SHORT).show();
-                            MedicinesList.invalidate();
-                            //medicineAdapter.notifyDataSetChanged();
-                        }
+                MedicineModel medicineModel = new MedicineModel(MedicineID.getText().toString(),MedicineQty.getText().toString(),MedicineName.getText().toString());
+                Call<MedicineModel> call1 = retrofitAPI.AddMedicine(medicineModel);
+                call1.enqueue(new Callback<MedicineModel>() {
+                    @Override
+                    public void onResponse(Call<MedicineModel> call1, Response<MedicineModel> response) {
+                        //Toast.makeText(MedicinesActivity.this,"Added Successfully",Toast.LENGTH_SHORT).show();
+                        //MedicinesList.invalidate();
+                        //medicineAdapter.notifyDataSetChanged();
+                    }
 
-                        @Override
-                        public void onFailure(Call<MedicineModel> call, Throwable t) {
-                            Toast.makeText(MedicinesActivity.this,"Error while Adding",Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    //Toast.makeText(MedicinesActivity.this,"3124324", Toast.LENGTH_SHORT).show();
-                }
+                    @Override
+                    public void onFailure(Call<MedicineModel> call1, Throwable t) {
+                        Toast.makeText(MedicinesActivity.this,"Error while Adding",Toast.LENGTH_SHORT).show();
+                    }
+                });
+                //Toast.makeText(MedicinesActivity.this,"3124324", Toast.LENGTH_SHORT).show();
             });
 
             AlertDialog dialog = alertDialog.create();
-            dialog.setCanceledOnTouchOutside(false);
+            dialog.setCanceledOnTouchOutside(true);
             dialog.show();
 
         });

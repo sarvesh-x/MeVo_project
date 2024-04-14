@@ -9,9 +9,5 @@
     android:layout_height="match_parent"
     tools:context=".ViewPatientsActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:id="@+id/all_patients_list"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp"/>
+
 </LinearLayout>

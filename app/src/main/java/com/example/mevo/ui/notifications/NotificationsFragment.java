@@ -19,6 +19,7 @@ import com.example.mevo.Adapters.NotificationAdapter;
 import com.example.mevo.DataModels.DoctorModel;
 import com.example.mevo.DataModels.NotificationModel;
 import com.example.mevo.R;
+import com.example.mevo.Utils.RetrofitConfig;
 import com.example.mevo.databinding.FragmentNotificationsBinding;
 
 import java.util.ArrayList;
@@ -34,8 +35,8 @@ public class NotificationsFragment extends Fragment {
 
 private FragmentNotificationsBinding binding;
 
-    private String BASE_URL = "https://good-rose-katydid-boot.cyclic.app";
 
+    API retrofitAPI = new RetrofitConfig().getRerofitAPI();
     public View onCreateView(@NonNull LayoutInflater inflater,
             ViewGroup container, Bundle savedInstanceState) {
         NotificationsViewModel notificationsViewModel =
@@ -44,18 +45,15 @@ private FragmentNotificationsBinding binding;
         binding = FragmentNotificationsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(binding.getRoot().getContext(), LinearLayoutManager.VERTICAL, false);
         RecyclerView notificationsList = binding.getRoot().findViewById(R.id.notifications_list);
         ArrayList<NotificationModel> notificationModelArrayList = new ArrayList<NotificationModel>();
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
-        API retrofitAPI = retrofit.create(API.class);
         Call<List<NotificationModel>> call = retrofitAPI.GetNotifications();
         call.enqueue(new Callback<List<NotificationModel>>() {
             @Override
             public void onResponse(Call<List<NotificationModel>> call, Response<List<NotificationModel>> response) {
-                NotificationAdapter notificationAdapter = getNotificationAdpater(response);
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(binding.getRoot().getContext(), LinearLayoutManager.VERTICAL, false);
                 notificationsList.setLayoutManager(linearLayoutManager);
-                notificationsList.setAdapter(notificationAdapter);
+                notificationsList.setAdapter(getNotificationAdpater(response));
             }
 
             @Override

@@ -32,14 +32,18 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.ViewHolder>{
+    public interface OnItemLongClickListener{
+        void onItemLongClick(Room room);
+    }
 
+    private final OnItemLongClickListener listener;
     private final Context context;
-    private String BASE_URL = "https://good-rose-katydid-boot.cyclic.app";
     RadioButton isAvailableRadioButton;
     private final ArrayList<Room> roomArrayList;
-    public RoomsAdapter(Context context, ArrayList<Room> roomArrayList) {
+    public RoomsAdapter(Context context, ArrayList<Room> roomArrayList, OnItemLongClickListener listener) {
         this.context = context;
         this.roomArrayList = roomArrayList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -55,53 +59,8 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.ViewHolder>{
         holder.RoomNo.setText(model.getRoomNo());
         holder.RoomAvailable.setText("Availablity  "+model.getAvailable());
         holder.RoomName.setText("Room Name  "+(model.getRoomName()));
-        holder.editButton.setOnClickListener(v -> {
-
-            String EditroomNo = model.getRoomNo();
-
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-            builder.setTitle("Update Room Details");
-            final View customLayout = View.inflate(v.getContext(),R.layout.edit_room_dialog, null);
-            TextView editRoomNo = customLayout.findViewById(R.id.editRoomNoDialog);
-            RadioGroup isAvailable = customLayout.findViewById(R.id.editRoomAvailable);
-            //Toast.makeText(v.getContext(),EditroomNo,Toast.LENGTH_LONG).show();
-            editRoomNo.setText("Update Details for Room No. "+EditroomNo);
-            builder.setView(customLayout);
-            builder.setPositiveButton("Save", (dialog, which) -> {
-                int availability = isAvailable.getCheckedRadioButtonId();
-                isAvailableRadioButton = customLayout.findViewById(availability);
-                Room roomModel = new Room(EditroomNo,isAvailableRadioButton.getText().toString(),"");
-                Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
-                API retrofitAPI = retrofit.create(API.class);
-                Call<Room> call = retrofitAPI.EditRoom(roomModel);
-                call.enqueue(new Callback<Room>() {
-                    @Override
-                    public void onResponse(Call<Room> call, Response<Room> response) {
-                        if (response.code() == 200){
-                            Toast.makeText(v.getContext(), "Room Details Saved", Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(v.getContext(), "Error Saving Room Details", Toast.LENGTH_LONG).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Room> call, Throwable t) {
-                        //RoomprogressBar.setVisibility(View.INVISIBLE);
-                        Log.e("----------",t.getMessage());
-                    }
-                });
-            });
-            AlertDialog dialog = builder.create();
-            dialog.show();
-        });
+        holder.bind(roomArrayList.get(position), listener);
     }
-
-    public void showAlertDialogButtonClicked(View view) {
-
-    }
-
-
 
     @Override
     public int getItemCount() {
@@ -109,6 +68,15 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.ViewHolder>{
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        public void bind(final Room room, final OnItemLongClickListener listener){
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    listener.onItemLongClick(room);
+                    return true;
+                }
+            });
+        }
         private final TextView RoomNo;
         private final ImageView editButton;
         private final TextView RoomName;

@@ -8,11 +8,14 @@ import com.example.mevo.DataModels.Room;
 import com.example.mevo.DataModels.UserModel;
 
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface API {
@@ -38,4 +41,15 @@ public interface API {
     Call <List<MedicineModel>> GetMedicines();
     @GET("GetPatients")
     Call <List<PatientModel>> GetPatients();
+    @Headers("Content-Type: application/json")
+    @POST("DeletePatient")
+    Call <PatientModel> DeletePatient(@Body Map<String, Object> body);
+    @POST("EditPatient")
+    Call<PatientModel> EditPatient(@Body PatientModel model);
+    @POST("DeleteRoom")
+    Call <Room> DeleteRoom(@Body Room room);
+    @Headers("Content-Type: application/json")
+    @POST("ScanPatient")
+    Call <PatientModel> ScanPatient(@Body Map<String, Object> body);
+
 }

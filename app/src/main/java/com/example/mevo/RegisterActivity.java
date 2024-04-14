@@ -20,6 +20,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.mevo.APIs.API;
 import com.example.mevo.DataModels.UserModel;
+import com.example.mevo.Utils.RetrofitConfig;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -37,11 +38,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private String BASE_URL = "https://good-rose-katydid-boot.cyclic.app";
+
     EditText name, email, password;
     private ProgressBar progressBar;
     Button signup;
-
+    API retrofitAPI = new RetrofitConfig().getRerofitAPI();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +53,6 @@ public class RegisterActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
 
         progressBar = findViewById(R.id.progressBarRegister);
         name = findViewById(R.id.NameRegister);
@@ -77,14 +77,13 @@ public class RegisterActivity extends AppCompatActivity {
                 return;
             }
 
-            Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
-            API retrofitAPI = retrofit.create(API.class);
+
             UserModel modal = new UserModel(Reg_email,Reg_name,Reg_password);
             Call<UserModel> call = retrofitAPI.signUp(modal);
             call.enqueue(new Callback<>() {
                 @Override
                 public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                    Toast.makeText(getApplicationContext(), "Registration Successfull", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(), "Registration Successfull", Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(View.INVISIBLE);
                     finish();
                 }
