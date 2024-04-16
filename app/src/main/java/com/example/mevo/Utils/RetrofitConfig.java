@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitConfig {
 
     //private static final String BASE_URL = "https://mevoexpress.azurewebsites.net/";
-    public static final String BASE_URL = "http://192.168.1.4:5000";
+    public static final String BASE_URL = "http://20.231.253.0:5000";
     Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
     API retrofitAPI = retrofit.create(API.class);
 
