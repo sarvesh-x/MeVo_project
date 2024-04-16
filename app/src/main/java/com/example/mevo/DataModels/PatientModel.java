@@ -41,8 +41,8 @@ public class PatientModel {
     public String getPatientName() {
         return PatientName;
     }
-    public void setPatientAddress(String pateintAddress) {
-        PatientAddress = pateintAddress;
+    public void setPatientAddress(String patientAddress) {
+        PatientAddress = patientAddress;
     }
     public void setPatientAge(String patientAge) {
         PatientAge = patientAge;

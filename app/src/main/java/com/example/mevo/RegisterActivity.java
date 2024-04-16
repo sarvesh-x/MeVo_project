@@ -27,6 +27,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.gson.JsonObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Objects;
 
@@ -79,17 +83,17 @@ public class RegisterActivity extends AppCompatActivity {
 
 
             UserModel modal = new UserModel(Reg_email,Reg_name,Reg_password);
-            Call<UserModel> call = retrofitAPI.signUp(modal);
-            call.enqueue(new Callback<>() {
+            Call<JsonObject> call = retrofitAPI.signUp(modal);
+            call.enqueue(new Callback<JsonObject>() {
                 @Override
-                public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                    //Toast.makeText(getApplicationContext(), "Registration Successfull", Toast.LENGTH_LONG).show();
+                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                    //Log.e("------->", response.body().get("message").toString());
                     progressBar.setVisibility(View.INVISIBLE);
                     finish();
                 }
 
                 @Override
-                public void onFailure(Call<UserModel> call, Throwable t) {
+                public void onFailure(Call<JsonObject> call, Throwable t) {
                     progressBar.setVisibility(View.INVISIBLE);
                     Log.e("----------",t.getMessage());
                 }

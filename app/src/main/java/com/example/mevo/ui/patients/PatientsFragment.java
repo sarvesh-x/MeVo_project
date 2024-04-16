@@ -61,6 +61,7 @@ private FragmentPatientsBinding binding;
             @Override
             public void onResponse(Call<List<PatientModel>> call, Response<List<PatientModel>> response) {
                 List<PatientModel> patients = response.body();
+
                 for (int i = 0; i < patients.size(); i++) {
                     PatientModel tempPatient = patients.get(i);
                     patientModelArrayList.add(tempPatient);
@@ -135,9 +136,7 @@ private FragmentPatientsBinding binding;
         dialog.show();
     }
     private void DeletePatient(PatientModel patientModel){
-        Map<String,Object> patient_id = new HashMap<>();
-        patient_id.put("_id",patientModel.getPatientID());
-        Call<PatientModel> call = retrofitAPI.DeletePatient(patient_id);
+        Call<PatientModel> call = retrofitAPI.DeletePatient(patientModel);
         call.enqueue(new Callback<PatientModel>() {
             @Override
             public void onResponse(Call<PatientModel> call, Response<PatientModel> response) {

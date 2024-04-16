@@ -31,6 +31,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.gson.JsonObject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     Button signin,signup;
     ProgressBar progressBar;
     API retrofitAPI = new RetrofitConfig().getRerofitAPI();
+
     @Override
     public void onStart() {
         super.onStart();
@@ -104,9 +106,7 @@ public class MainActivity extends AppCompatActivity {
             call.enqueue(new Callback<UserModel>() {
                 @Override
                 public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                    Log.e("------------", String.valueOf(response.code()));
                     if (response.code() == 200){
-                        //Toast.makeText(getApplicationContext(), "Login Successfull", Toast.LENGTH_LONG).show();
                         progressBar.setVisibility(View.INVISIBLE);
                         if (shp == null)
                             shp = getSharedPreferences("myPreferences", MODE_PRIVATE);

@@ -88,7 +88,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:text="Patients"
+        android:text="Add Patient"
         app:layout_constraintBottom_toBottomOf="@+id/add_person_fab"
         app:layout_constraintEnd_toStartOf="@+id/add_person_fab"
         app:layout_constraintTop_toTopOf="@+id/add_person_fab" />
