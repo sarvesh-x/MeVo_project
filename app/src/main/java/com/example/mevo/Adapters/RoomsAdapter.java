@@ -35,7 +35,6 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.ViewHolder>{
     public interface OnItemLongClickListener{
         void onItemLongClick(Room room);
     }
-
     private final OnItemLongClickListener listener;
     private final Context context;
     RadioButton isAvailableRadioButton;

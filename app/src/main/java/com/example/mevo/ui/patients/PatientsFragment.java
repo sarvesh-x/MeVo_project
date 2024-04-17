@@ -1,13 +1,19 @@
 package com.example.mevo.ui.patients;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +25,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.mevo.APIs.API;
 import com.example.mevo.Adapters.PatientsAdapter;
 import com.example.mevo.CreatePatientActivity;
@@ -48,6 +55,9 @@ private FragmentPatientsBinding binding;
     ArrayList<PatientModel> patientModelArrayList = new ArrayList<PatientModel>();
     API retrofitAPI = new RetrofitConfig().getRerofitAPI();
     RecyclerView patientsList;
+    ProgressDialog loading;
+
+
     public View onCreateView(@NonNull LayoutInflater inflater,
             ViewGroup container, Bundle savedInstanceState) {
         PatientsViewModel patientsViewModel = new ViewModelProvider(this).get(PatientsViewModel.class);
@@ -56,12 +66,18 @@ private FragmentPatientsBinding binding;
         View root = binding.getRoot();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(binding.getRoot().getContext(), LinearLayoutManager.VERTICAL, false);
         patientsList = binding.getRoot().findViewById(R.id.view_patients_list);
+        //loading = binding.getRoot().findViewById(R.id.loadingPatients);
+        loading = new ProgressDialog(getContext());
+        loading.setCancelable(true);
+        loading.setMessage("Loading Patients List");
+        loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        loading.show();
         Call<List<PatientModel>> call = retrofitAPI.GetPatients();
         call.enqueue(new Callback<List<PatientModel>>() {
             @Override
             public void onResponse(Call<List<PatientModel>> call, Response<List<PatientModel>> response) {
                 List<PatientModel> patients = response.body();
-
+                loading.dismiss();
                 for (int i = 0; i < patients.size(); i++) {
                     PatientModel tempPatient = patients.get(i);
                     patientModelArrayList.add(tempPatient);
@@ -94,6 +110,7 @@ private FragmentPatientsBinding binding;
 
             @Override
             public void onFailure(Call<List<PatientModel>> call, Throwable t) {
+                loading.dismiss();
                 Toast.makeText(binding.getRoot().getContext(), "Error getting Patient Details",Toast.LENGTH_SHORT).show();
             }
         });

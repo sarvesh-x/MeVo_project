@@ -19,6 +19,8 @@
             android:id="@+id/patientListImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:background="@drawable/circle_bg"
+            android:scaleType="centerCrop"
             android:layout_margin="10dp"
             android:contentDescription="@string/app_name"
             android:padding="5dp"

@@ -4,6 +4,7 @@ import static android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION;
 
 import static com.example.mevo.Utils.RetrofitConfig.BASE_URL;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -66,6 +67,7 @@ public class RootActivity extends AppCompatActivity {
     TextView addAlarmActionText, addPersonActionText, greetings;
     Boolean isAllFabsVisible;
     OkHttpClient client = new OkHttpClient();
+    ProgressDialog loading;
     protected static final int CAMERA_REQUEST = 100;
     API retrofitAPI = new RetrofitConfig().getRerofitAPI();
     File captureMediaFile;
@@ -161,6 +163,7 @@ public class RootActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        loading.dismiss();
                         Toast.makeText(getApplicationContext(), "Failed to send image to server", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -175,6 +178,7 @@ public class RootActivity extends AppCompatActivity {
                         public void run() {
                             try {
                                 JSONObject jsonObject = new JSONObject(responseData);
+                                loading.dismiss();
                                 showPatientDetail(getApplicationContext(),jsonObject);
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -247,6 +251,11 @@ public class RootActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK && requestCode == CAMERA_REQUEST) {
             String filePath = captureMediaFile.getAbsolutePath();
             ImageUtil.downscaleBitmap(filePath,500,500);
+            loading = new ProgressDialog(RootActivity.this);
+            loading.setCancelable(true);
+            loading.setMessage("Fetching details from Server");
+            loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            loading.show();
             sendImageToServer(captureMediaFile);
         }
     }

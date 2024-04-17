@@ -35,6 +35,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
+    DoctorsListAdapter doctorsListAdapter;
     API retrofitAPI = new RetrofitConfig().getRerofitAPI();
     ArrayList<DoctorModel> doctorModelArrayList = new ArrayList<DoctorModel>();
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -55,7 +56,7 @@ public class HomeFragment extends Fragment {
                     DoctorModel tempDoctor = doctors.get(i);
                     doctorModelArrayList.add(tempDoctor);
                 }
-                DoctorsListAdapter doctorsListAdapter = new DoctorsListAdapter(binding.getRoot().getContext(), doctorModelArrayList);
+                doctorsListAdapter = new DoctorsListAdapter(binding.getRoot().getContext(), doctorModelArrayList);
                 doctorsList.setLayoutManager(linearLayoutManager);
                 doctorsList.setAdapter(doctorsListAdapter);
             }

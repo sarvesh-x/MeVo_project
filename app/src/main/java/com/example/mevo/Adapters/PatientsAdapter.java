@@ -1,6 +1,9 @@
 package com.example.mevo.Adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -17,6 +20,9 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.mevo.APIs.API;
 import com.example.mevo.DataModels.MedicineModel;
 import com.example.mevo.DataModels.PatientModel;
@@ -62,6 +68,17 @@ public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.Viewho
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.patient_card, parent, false);
         return new PatientsAdapter.Viewholder(view);
     }
+    public void loadImageWithGlide(String base64String, ImageView imageView) {
+        byte[] decodedString = Base64.decode(base64String, Base64.DEFAULT);
+
+        Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+        Glide.with(context.getApplicationContext())
+                .load(bitmap)
+                .apply(RequestOptions.circleCropTransform())
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(imageView);
+    }
 
     @Override
     public void onBindViewHolder(@NonNull PatientsAdapter.Viewholder holder, int position) {
@@ -72,7 +89,8 @@ public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.Viewho
         holder.patient_age.setText(patientModel.getPatientAge());
         holder.patient_contact.setText(patientModel.getPatientContact());
         holder.patient_address.setText(patientModel.getPatientAddress());
-        holder.patient_image.setImageBitmap(ImageUtil.convert(patientModel.getPatientImage()));
+        //holder.patient_image.setImageBitmap(ImageUtil.convert(patientModel.getPatientImage()));
+        loadImageWithGlide(patientModel.getPatientImage(),holder.patient_image);
         holder.bind(patientModel,listener);
     }
 

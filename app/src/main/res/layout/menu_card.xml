@@ -58,5 +58,6 @@
             android:layout_toEndOf="@id/doctorsImage"
             android:drawablePadding="5dp"
             android:text="Subtitle" />
+
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

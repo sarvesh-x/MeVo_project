@@ -19,6 +19,7 @@
         android:layout_width="100dp"
         android:id="@+id/viewPatientImage"
         android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
         android:layout_height="100dp"/>
 
     <TextView
@@ -27,9 +28,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:text="ID"
-        android:textColor="@color/black"
-        android:textSize="18sp"
+        android:text="_id"
+        android:textColor="@color/grey"
+        android:textSize="10sp"
         android:textStyle="bold" />
 
     <TextView
@@ -38,10 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:text="Name"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:text="Name" />
 
     <TextView
         android:id="@+id/viewPatientAge"
@@ -50,7 +48,6 @@
         android:gravity="start"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:drawablePadding="5dp"
         android:text="Age" />
 
     <TextView
@@ -60,7 +57,6 @@
         android:gravity="start"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:drawablePadding="5dp"
         android:text="Gender" />
 
     <TextView
@@ -70,7 +66,6 @@
         android:gravity="start"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:drawablePadding="5dp"
         android:text="Contact" />
 
     <TextView
@@ -81,7 +76,6 @@
         android:layout_marginStart="10dp"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
-        android:drawablePadding="5dp"
         android:text="Address" />
 
 </LinearLayout>

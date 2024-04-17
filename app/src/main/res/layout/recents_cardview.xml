@@ -53,15 +53,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Share"
-                    android:textColor="#000"
-                    android:theme="@style/PrimaryFlatButton" />
+                    android:textColor="#000" />
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Explore"
                     android:layout_marginLeft="8dp"
-                    android:textColor="#000"
-                    android:theme="@style/PrimaryFlatButton" />
+                    android:textColor="#000" />
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
