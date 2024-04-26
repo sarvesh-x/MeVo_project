@@ -330,7 +330,7 @@ public class RootActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(RootActivity.this,MedicinesActivity.class);
+                        Intent intent = new Intent(RootActivity.this,PanjikaranaActivity.class);
                         startActivity(intent);
                     }
                 });

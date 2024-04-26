@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_margin="30dp"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".PanjikaranaActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:paddingTop="40dp"
+        android:id="@+id/AdmitPatientID"
+        android:layout_marginTop="10dp"
+        android:hint="inserted_id"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/AdmitPatientName"
+        android:hint="Name"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/AdmitPatientAge"
+        android:hint="Age"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/AdmitPatientGender"
+        android:hint="Gender"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:id="@+id/AdmitPatientProblem"
+        android:hint="Problem"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"/>
+
+    <Spinner
+        android:id="@+id/AdmitDoctors"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
