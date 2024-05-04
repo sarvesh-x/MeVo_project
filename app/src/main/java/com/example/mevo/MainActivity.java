@@ -4,6 +4,7 @@ package com.example.mevo;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -18,6 +19,8 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -40,6 +43,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
+    private static final int CAMERA_PERMISSION_REQUEST_CODE = 666;
     SharedPreferences shp;
     SharedPreferences.Editor shpEditor;
     EditText email,password;
@@ -51,6 +55,27 @@ public class MainActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         CheckLogin();
+    }
+
+    void checkpermission(){
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            // Permission is not granted, request it
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted, proceed with your app's logic
+                // You can start your app's main functionality here
+            } else {
+                // Permission denied, handle accordingly (e.g., show a message or exit the app)
+                Toast.makeText(MainActivity.this,"Allow Camera Permission",Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     public void CheckLogin() {
@@ -79,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         shp = getSharedPreferences("myPreferences", MODE_PRIVATE);
-
+        checkpermission();
         progressBar = findViewById(R.id.progressBarLogin);
         email = findViewById(R.id.username);
         password = findViewById(R.id.userpassword);

@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.MeVo" parent="Theme.AppCompat.Light">
 
-        <item name="android:windowBackground">@drawable/background</item>
+
 
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>

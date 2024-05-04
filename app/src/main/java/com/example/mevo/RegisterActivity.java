@@ -72,12 +72,17 @@ public class RegisterActivity extends AppCompatActivity {
             Reg_email = email.getText().toString();
             Reg_password = password.getText().toString();
 
+            String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
             if (TextUtils.isEmpty(Reg_email)) {
                 Toast.makeText(getApplicationContext(), "Please enter email...", Toast.LENGTH_LONG).show();
                 return;
             }
             if (TextUtils.isEmpty(Reg_password)) {
                 Toast.makeText(getApplicationContext(), "Please enter password!", Toast.LENGTH_LONG).show();
+                return;
+            }
+            if(!Reg_email.matches(emailPattern)){
+                Toast.makeText(getApplicationContext(), "Please enter valid email...", Toast.LENGTH_LONG).show();
                 return;
             }
 
