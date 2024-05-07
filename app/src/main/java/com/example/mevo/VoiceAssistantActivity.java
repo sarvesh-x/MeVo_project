@@ -25,9 +25,7 @@ public class VoiceAssistantActivity extends AppCompatActivity {
     private SpeechRecognizer speechRecognizer;
     private TextToSpeech textToSpeech;
     private TextView textView;
-    private Intent recognizerIntent;
     private boolean isInputReceived = false;
-    private final Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,42 +33,38 @@ public class VoiceAssistantActivity extends AppCompatActivity {
         setContentView(R.layout.fragment_assistant);
         textView = findViewById(R.id.show_AssistantCommand);
 
+        initializeTextToSpeech();
+    }
+
+    private void initializeTextToSpeech() {
         textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
-            public void onInit(int i) {
-                if (i != TextToSpeech.ERROR) {
-                    textToSpeech.speak("How can I help you?", TextToSpeech.QUEUE_FLUSH, null, null);
-                    // Start listening after 3 seconds
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            startListening();
-                        }
-                    }, 10000);
+            public void onInit(int status) {
+                if (status == TextToSpeech.SUCCESS) {
+                    // TextToSpeech engine initialized successfully
+                    startAssistant();
+                } else {
+                    Log.e("TextToSpeech", "Initialization failed");
+                    // Handle initialization failure
                 }
             }
         });
+    }
+
+    private void startAssistant() {
+        textToSpeech.speak("How can I help you?", TextToSpeech.QUEUE_FLUSH, null, null);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, 1);
         } else {
             startListening();
         }
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (!isInputReceived) {
-                    textView.setText("No input received.");
-                    textToSpeech.speak("No input received.", TextToSpeech.QUEUE_FLUSH, null, null);
-                    finish();
-                }
-            }
-        }, 10000);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        // Release resources
         if (textToSpeech != null) {
             textToSpeech.stop();
             textToSpeech.shutdown();
@@ -84,86 +78,94 @@ public class VoiceAssistantActivity extends AppCompatActivity {
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
         speechRecognizer.setRecognitionListener(new RecognitionListener() {
             @Override
-            public void onReadyForSpeech(Bundle bundle) {
+            public void onReadyForSpeech(Bundle params) {}
+
+            @Override
+            public void onBeginningOfSpeech() {}
+
+            @Override
+            public void onRmsChanged(float rmsdB) {}
+
+            @Override
+            public void onBufferReceived(byte[] buffer) {}
+
+            @Override
+            public void onEndOfSpeech() {}
+
+            @Override
+            public void onError(int error) {
+                Log.e("SpeechRecognizer", "Error: " + error);
+                noInputReceived();
             }
 
             @Override
-            public void onBeginningOfSpeech() {
-            }
-
-            @Override
-            public void onRmsChanged(float v) {
-            }
-
-            @Override
-            public void onBufferReceived(byte[] bytes) {
-            }
-
-            @Override
-            public void onEndOfSpeech() {
-            }
-
-            @Override
-            public void onError(int i) {
-                textToSpeech.speak("Error occurred.", TextToSpeech.QUEUE_FLUSH, null, null);
-
-                textView.setText("Error occurred.");
-
-                finish();
-            }
-
-            @Override
-            public void onResults(Bundle bundle) {
-                ArrayList<String> matches = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+            public void onResults(Bundle results) {
+                ArrayList<String> matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
                 if (matches != null && !matches.isEmpty()) {
                     String result = matches.get(0);
                     textView.setText(result);
                     textToSpeech.speak("You said: " + result, TextToSpeech.QUEUE_FLUSH, null, null);
                     isInputReceived = true;
-                    finish();
+                    handleCommand(result.toLowerCase());
                 } else {
-                    textView.setText("No input received.");
-                    textToSpeech.speak("No input received.", TextToSpeech.QUEUE_FLUSH, null, null);
-                    finish();
+                    noInputReceived();
                 }
             }
 
             @Override
-            public void onPartialResults(Bundle bundle) {
+            public void onPartialResults(Bundle partialResults) {
+                ArrayList<String> partials = partialResults.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+                if (partials != null && !partials.isEmpty()) {
+                    String partialResult = partials.get(0);
+                    textView.setText(partialResult);
+                }
             }
 
             @Override
-            public void onEvent(int i, Bundle bundle) {
-            }
+            public void onEvent(int eventType, Bundle params) {}
         });
 
-        recognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        Intent recognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
         recognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
 
         speechRecognizer.startListening(recognizerIntent);
+
+        // Stop listening after a timeout
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                speechRecognizer.stopListening();
                 if (!isInputReceived) {
-                    textView.setText("No input received.");
-                    textToSpeech.speak("No input received.", TextToSpeech.QUEUE_FLUSH, null, null);
-                    finish();
+                    noInputReceived();
                 }
             }
-        }, 10000);
+        }, 15000); // Extend timeout as needed
     }
 
-//    private void finishAfterDelay(long delayMillis) {
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                finish();
-//            }
-//        }, delayMillis);
-//    }
+    private void noInputReceived() {
+        textView.setText("No input received.");
+        textToSpeech.speak("No input received.", TextToSpeech.QUEUE_FLUSH, null, null);
+        finish();
+    }
+
+    private void handleCommand(String command) {
+        switch (command) {
+            case "create patient":
+                startActivity(new Intent(VoiceAssistantActivity.this, CreatePatientActivity.class));
+                break;
+            case "patient":
+                startActivity(new Intent(VoiceAssistantActivity.this, ViewPatientsActivity.class));
+                break;
+            case "settings":
+                startActivity(new Intent(VoiceAssistantActivity.this, SettingsActivity.class));
+                break;
+            default:
+                textToSpeech.speak("Command not recognized.", TextToSpeech.QUEUE_FLUSH, null, null);
+                finish();
+                break;
+        }
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
