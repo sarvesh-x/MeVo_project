@@ -29,5 +29,10 @@
         android:label="Manage Rooms"
         tools:layout="@layout/fragment_rooms" />
 
+    <fragment
+        android:id="@+id/navigation_assistant"
+        android:name="com.example.mevo.ui.assistant.AssistantFragment"
+        android:label="Voice Assistant"
+        tools:layout="@layout/fragment_assistant" />
 
 </navigation>

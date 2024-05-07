@@ -13,6 +13,11 @@
         android:title="@string/title_notifications"/>
 
     <item
+        android:id="@+id/navigation_assistant"
+        android:icon="@drawable/baseline_available"
+        android:title="MeVo" />
+
+    <item
         android:id="@+id/navigation_patients"
         android:icon="@drawable/ic_patients"
         android:title="Patients"/>
