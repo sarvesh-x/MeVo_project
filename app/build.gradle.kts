@@ -77,4 +77,11 @@ dependencies {
     androidTestImplementation(libs.ui.test.junit4)
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
+
+
+    implementation("com.google.ai.client.generativeai:generativeai:0.3.0")
+
+    implementation("com.google.guava:guava:31.0.1-android")
+
+    implementation("org.reactivestreams:reactive-streams:1.0.4")
 }

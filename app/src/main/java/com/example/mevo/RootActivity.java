@@ -4,13 +4,19 @@ import static android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION;
 
 import static com.example.mevo.Utils.RetrofitConfig.BASE_URL;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.speech.RecognitionListener;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -31,6 +37,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -46,6 +53,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -63,6 +71,8 @@ import retrofit2.Response;
 
 public class RootActivity extends AppCompatActivity {
     FloatingActionButton mAddAlarmFab, mAddPersonFab;
+    private SpeechRecognizer speechRecognizer;
+    private TextToSpeech textToSpeech;
     ExtendedFloatingActionButton mAddFab;
     TextView addAlarmActionText, addPersonActionText, greetings;
     Boolean isAllFabsVisible;
@@ -336,7 +346,28 @@ public class RootActivity extends AppCompatActivity {
                 });
 
     }
-    @Override
+
+
+        public void assistant_call(MenuItem item) {
+//            textToSpeech.speak("How Can I Help You?", TextToSpeech.QUEUE_FLUSH,null,null);
+
+//        try {
+//            Thread.sleep(3000);
+//        }catch(InterruptedException e){
+//            e.printStackTrace();
+//        }
+        Intent recognizerIntent = new Intent(this, VoiceAssistantActivity.class);
+//        speechRecognizer.startListening(intent);
+
+            startActivity(recognizerIntent);
+    }
+
+
+
+
+
+
+@Override
     protected void onDestroy() {
         super.onDestroy();
     }
