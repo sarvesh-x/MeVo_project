@@ -2,23 +2,22 @@
 
 **MeVo** is an Android-based healthcare management app that leverages **facial recognition** to streamline patient identification and improve clinical operations. Designed for hospitals and clinics, MeVo enables staff to efficiently manage **appointments**, **medicine inventory**, and **room allocations** — all in one intuitive mobile platform.
 
----
 
- 🔍 Key Features
+### 🔍 Key Features
 
-### 👤 Face Recognition
+ 👤 Face Recognition
 - Instantly recognize and retrieve patient records using facial recognition.
 - Ensures accurate identification and eliminates manual record searching.
 
-### 📅 Appointment Management
+ 📅 Appointment Management
 - View, add, or reschedule patient appointments.
 - Assign doctors and departments for visits.
 
-### 💊 Medicine Stock
+ 💊 Medicine Stock
 - Keep track of medicine inventory.
 - Add or remove stock and receive alerts when inventory is low.
 
-### 🏥 Room Management
+ 🏥 Room Management
 - Monitor room availability and allocate rooms to patients.
 - Track occupancy and room statuses in real-time.
 
